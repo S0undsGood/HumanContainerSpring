@@ -25,6 +25,7 @@ public class HumansContainerTaskApplication implements CommandLineRunner {
 		humanContainer.deleteHuman(5);
 		//System.out.println(humanContainer.getHumanById(4).toString());
 		//humanContainer.printAllById();
+		System.out.println();
 		humanContainer.printAllSorted();
 	}
 }
