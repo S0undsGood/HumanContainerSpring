@@ -1,16 +1,17 @@
 package ru.vnevzorov.HumansContainerTask;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Component
-public class HumanContainer {
+@Profile("production")
+public class HumanContainer implements Container {
     private String path = "C:\\IProjects\\HumansContainerTask\\src\\main\\resources\\humans.txt";
     private Set<Human> container = new LinkedHashSet<>();
 
@@ -35,7 +36,7 @@ public class HumanContainer {
     }
 
     public void printAll() {
-        container.forEach(Human::print);
+        container.forEach(System.out::println);
     }
 
     public void addHuman(String name, int age) {
@@ -75,11 +76,11 @@ public class HumanContainer {
     }
 
     public void printAllById() {
-        container.stream().sorted(Comparator.comparing(Human::getId)).forEach(Human::print);
+        container.stream().sorted(Comparator.comparing(Human::getId)).forEach(System.out::println);
     }
 
     public void printAllSorted() {
-        container.stream().sorted(Comparator.comparing(Human::getName).thenComparing(Human::getAge)).forEach(Human::print);
+        container.stream().sorted(Comparator.comparing(Human::getName).thenComparing(Human::getAge)).forEach(System.out::println);
     }
 
     public void changeHumanParameters(int humansID, String newName, int newAge) {

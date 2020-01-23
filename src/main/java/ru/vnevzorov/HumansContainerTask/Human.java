@@ -12,8 +12,20 @@ public class Human {
     private int age;
     private int id;
 
-    public void print() {
+    public Human() {}
+
+    public Human(int id, String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.id = id;
+    }
+
+    /*public void print() {
         System.out.println("id: " + this.id + "\tname: " + this.name + "\t  age: " + this.age);
+    }*/
+
+    public String toString() {
+        return "id: " + this.id + "\tname: " + this.name + "\t  age: " + this.age;
     }
 
     public int getId() {

@@ -16,14 +16,14 @@ public class HumansContainerTaskApplication implements CommandLineRunner {
 	}
 
 	@Autowired
-	private HumanContainer humanContainer;
+	private Container humanContainer;
 
 	@Override
 	public void run(String... args) throws Exception {
 		//humanContainer.addHuman("Vika", 19);
 		//humanContainer.changeHumanParameters(4, "Masha", 18);
-		//humanContainer.deleteHuman(5);
-		//humanContainer.getHumanById(4).print();
+		humanContainer.deleteHuman(5);
+		//System.out.println(humanContainer.getHumanById(4).toString());
 		//humanContainer.printAllById();
 		humanContainer.printAllSorted();
 	}
