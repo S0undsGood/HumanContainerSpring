@@ -144,7 +144,7 @@ public class HumanContainer implements Container {
         newFile.renameTo(oldFile);
     }
 
-    public Human getHumanById(int id) throws NullPointerException {
+    public Human getHumanById(int id) {
         for (Human human : container) {
             if (human.getId() == id) {
                 return human;
