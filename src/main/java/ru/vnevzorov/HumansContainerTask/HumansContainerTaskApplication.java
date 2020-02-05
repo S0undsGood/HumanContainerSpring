@@ -20,8 +20,8 @@ public class HumansContainerTaskApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//humanContainer.addHuman("Vika", 19);
-		//humanContainer.changeHumanParameters(4, "Masha", 18);
+		//humanContainer.addHuman(new Human("Vika", 19));
+		humanContainer.changeHumanParameters(6, "Masha", 18);
 		humanContainer.deleteHuman(5);
 		//System.out.println(humanContainer.getHumanById(4).toString());
 		//humanContainer.printAllById();

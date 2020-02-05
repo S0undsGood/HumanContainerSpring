@@ -5,50 +5,47 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
-import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Component
 @Profile("test")
 public class HumanContainerTest implements Container {
-    private Set<Human> container = new LinkedHashSet<>();
+    private Map<String, Human> container = new TreeMap<>();
 
     @PostConstruct
     private void fillAllHumans() {
-        Human human1 = new Human(2, "Vasya", 20);
-        Human human2 = new Human(1, "Masha", 21);
-        Human human3 = new Human(5, "Katya", 19);
-        Human human4 = new Human(3, "Katya", 25);
-        Human human5 = new Human(4, "Victor", 18);
+        Human human1 = new Human("Vasya", 20);
+        Human human2 = new Human("Masha", 21);
+        Human human3 = new Human("Katya", 19);
+        Human human4 = new Human("Katya", 25);
+        Human human5 = new Human("Victor", 18);
 
-        container.add(human1);
-        container.add(human2);
-        container.add(human3);
-        container.add(human4);
-        container.add(human5);
+        addHuman(human1);
+        addHuman(human2);
+        addHuman(human3);
+        addHuman(human4);
+        addHuman(human5);
 
         printAll();
     }
 
     public void printAll() {
-        container.forEach(System.out::println);
+        container.entrySet().iterator().forEachRemaining(System.out::println);
     }
 
-    public void addHuman(String name, int age) {
+    public void addHuman(Human human) {
         int nextID = getLastID() + 1;
-        Human human = new Human(nextID, name, age);
-
-        printAll();
+        human.setId(nextID);
+        container.put("" + nextID, human);
     }
 
     private int getLastID() {
         int lastID = 0;
         int currentID;
 
-        for (Human human : container) {
-            currentID = human.getId();
-            if (lastID < currentID) {
+        for (Map.Entry<String, Human> entry : container.entrySet()) {
+            currentID = Integer.parseInt(entry.getKey());
+            if (currentID > lastID) {
                 lastID = currentID;
             }
         }
@@ -56,40 +53,30 @@ public class HumanContainerTest implements Container {
     }
 
     public void printAllById() {
-        container.stream().sorted(Comparator.comparing(Human::getId)).forEach(System.out::println);
+        for (Map.Entry<String, Human> entry1 : container.entrySet()) {
+            System.out.println(entry1.getValue().toString());
+        }
     }
 
     public void printAllSorted() {
-        container.stream().sorted(Comparator.comparing(Human::getName).thenComparing(Human::getAge)).forEach(System.out::println);
+        container.values().stream().sorted(Comparator.comparing(Human::getName).thenComparing(Human::getAge)).forEach(System.out::println);
     }
 
-    public void changeHumanParameters(int humansID, String newName, int newAge) {
-        for (Human human : container) {
-            if (human.getId() == humansID) {
-                human.setName(newName);
-                human.setAge(newAge);
-                break;
-            }
+    public void changeHumanParameters(int humansID, String newName, int newAge) throws NullPointerException {
+        Human human = container.get("" + humansID);
+        if (human == null) {
+            throw new NullPointerException();
+        } else {
+            human.setName(newName);
+            human.setAge(newAge);
         }
-        printAll();
     }
 
-    public void deleteHuman(int humansID) {
-        for (Human human : container) {
-            if (human.getId() == humansID) {
-                container.remove(human);
-                break;
-            }
-        }
-        printAll();
+    public void deleteHuman(int humansID) throws NullPointerException {
+        container.remove("" + humansID);
     }
 
     public Human getHumanById(int id) throws NullPointerException {
-        for (Human human : container) {
-            if (human.getId() == id) {
-                return human;
-            }
-        }
-        return null;
+        return container.get("" + id);
     }
 }

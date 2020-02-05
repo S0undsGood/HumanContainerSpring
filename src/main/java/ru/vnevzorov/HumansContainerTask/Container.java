@@ -1,7 +1,7 @@
 package ru.vnevzorov.HumansContainerTask;
 
 public interface Container {
-    void addHuman(String name, int age);
+    void addHuman(Human human);
 
     void deleteHuman(int id);
 

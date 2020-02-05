@@ -1,5 +1,5 @@
 1,Pavel,25
-6,Vasya,25
-3,Vasya,25
-3,Vasya,25
 2,Masha,18
+3,Vasya,25
+6,Masha,18
+7,Vika,19

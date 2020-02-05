@@ -10,7 +10,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Component
-@Profile("production")
+@Profile("workWithFileDirectly")
 public class HumanContainer implements Container {
     private String path = "C:\\IProjects\\HumansContainerTask\\src\\main\\resources\\humans.txt";
     private Set<Human> container = new LinkedHashSet<>();
@@ -39,12 +39,12 @@ public class HumanContainer implements Container {
         container.forEach(System.out::println);
     }
 
-    public void addHuman(String name, int age) {
+    public void addHuman(Human human) {
 
         try (FileWriter writer = new FileWriter(path, true)) {
 
             int nextID = getLastID() + 1;
-            writer.write("\r\n" + nextID + "," + name + "," + age);
+            writer.write("\r\n" + nextID + "," + human.getName() + "," + human.getAge());
 
         } catch (IOException e) {
             e.printStackTrace();

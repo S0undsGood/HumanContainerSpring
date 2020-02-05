@@ -14,10 +14,9 @@ public class Human {
 
     public Human() {}
 
-    public Human(int id, String name, int age) {
+    public Human(String name, int age) {
         this.name = name;
         this.age = age;
-        this.id = id;
     }
 
     /*public void print() {
